@@ -1,18 +1,30 @@
 import React from 'react';
 
 import Tab from './Tab.js';
+import TabDefault from './TabDefault.js';
 
 class Tabs extends React.Component {
     constructor(props) {
         super(props); 
+        this.initializeStateWithChildren();        
+        this.handleTabClick = this.handleTabClick.bind(this);       
+        this.handleNewTabClick = this.handleNewTabClick.bind(this);
+    }
+    
+    initializeStateWithChildren() {
+        let tabDefault;
+        let tabs = React.Children.map(this.props.children, (child) => {
+                if(!tabDefault && child.type == TabDefault) {
+                    tabDefault = React.cloneElement(child);
+                } else if(child.type == Tab) {                    
+                    return React.cloneElement(child);
+                }   
+        });        
         this.state = {
             activeTabId: 0,
-            tabs: React.Children.map(this.props.children, (child) => {
-                return React.cloneElement(child);
-            })
-        }
-        this.handleTabClick = this.handleTabClick.bind(this);       
-        this.handleNewTabClick = this.handleNewTabClick.bind(this);        
+            tabs: tabs,
+            tabDefault: tabDefault         
+        }        
     }
     
     getUpdatedTabsWithProps() {
@@ -47,6 +59,7 @@ class Tabs extends React.Component {
     }
     
     renderActiveTab() {
+        console.log(this.state);
         return this.state['tabs'][this.state.activeTabId].props.children;
     }
 

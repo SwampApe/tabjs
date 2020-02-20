@@ -10,7 +10,10 @@ class TabDefault extends React.Component {
     
     
     render() {
-        return ();
+        return (
+        <>
+        </>
+        );
     }
 }
 
