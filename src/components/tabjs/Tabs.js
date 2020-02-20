@@ -59,7 +59,6 @@ class Tabs extends React.Component {
                 <div className="new-tab-button" onClick={this.handleNewTabClick}>
                     <a>+</a>
                 </div>
-                
                 <div className="tab-content">
                     {this.renderActiveTab()}
                 </div>
