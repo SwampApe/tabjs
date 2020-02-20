@@ -8,7 +8,7 @@ class Tab extends React.Component {
     
     render() {
         return (
-            <div className="tab">
+            <div className={"tab" + (this.props.isActive ? " active-tab" : "")} >
                 <a onClick={() => this.props.onClick(this.props.tabId)}>{this.props.label}</a>
             </div>
         )
