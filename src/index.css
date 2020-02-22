@@ -21,10 +21,24 @@ code {
     cursor: pointer;   
 }
 
+.noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Old versions of Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Opera and Firefox */
+}
+
 .tab {
     padding: 1.5vh;
     margin: 0vh 1.25vh 3vh 1.25vh;
     border: 0.5vh solid;
+}
+
+.tab:hover {
+    background-color: #4f5666;    
 }
 
 .active-tab {

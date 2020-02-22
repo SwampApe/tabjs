@@ -40,7 +40,7 @@ class Tabs extends React.Component {
     getNewTabButtonIfDefaultExists() {
         if(this.state['tabDefault'] !== undefined) {
             return (
-                <div className="btn new-tab-button" onClick={this.handleNewTabClick}>
+                <div className="btn noselect new-tab-button" onClick={this.handleNewTabClick}>
                     <a>+</a>
                 </div>
             )
