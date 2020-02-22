@@ -45,16 +45,26 @@ class Tabs extends React.Component {
     
     getNewTab(state) {
         let id = state['tabs'].length;
-        return (
-            <Tab label={"tab " + id}>
-                <a>new tabed lole</a>   
-            </Tab>
-        );
+        if(state['tabDefault'] !== undefined) {
+            return (
+                <Tab label={'tab ' + state['tabs'].length}>
+                    {state['tabDefault'].props.children}
+                </Tab>
+            )
+        } else {
+            return ( 
+                <Tab label={'tab ' + state['tabs'].length}>
+                    <a>asdf</a>
+                </Tab>
+            );
+        }
     }
     
     handleNewTabClick() {
         this.setState((prevState) => {
-            tabs: [...prevState.tabs, this.getNewTab(prevState)]
+            return {
+                tabs: [...prevState.tabs, this.getNewTab(prevState)]
+            }
         })
     }
     
