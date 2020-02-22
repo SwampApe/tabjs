@@ -38,7 +38,9 @@ code {
 }
 
 .tab:hover {
-    background-color: #4f5666;    
+    border: 0.5vh solid #282c34;
+    background-color: white;
+    color: #282c34;
 }
 
 .active-tab {
