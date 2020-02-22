@@ -12,3 +12,29 @@ code {
     monospace;
 }
 
+.tab-nav {
+    display: flex;
+    flex: row nowrap;
+}
+
+.btn {
+    cursor: pointer;   
+}
+
+.tab {
+    padding: 1.5vh;
+    margin: 0vh 1.25vh 3vh 1.25vh;
+    border: 0.5vh solid;
+}
+
+.active-tab {
+    
+    
+}
+
+.new-tab-button {
+    padding: 1.5vh;
+    margin: 0vh 1.25vh 3vh 1.25vh;
+    border: 0.5vh dashed;
+    font-weight: 700;
+}

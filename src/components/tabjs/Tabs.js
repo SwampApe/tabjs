@@ -40,7 +40,7 @@ class Tabs extends React.Component {
     getNewTabButtonIfDefaultExists() {
         if(this.state['tabDefault'] !== undefined) {
             return (
-                <div className="new-tab-button" onClick={this.handleNewTabClick}>
+                <div className="btn new-tab-button" onClick={this.handleNewTabClick}>
                     <a>+</a>
                 </div>
             )
@@ -73,7 +73,6 @@ class Tabs extends React.Component {
     }
     
     renderActiveTab() {
-        console.log(this.state);
         return this.state['tabs'][this.state.activeTabId].props.children;
     }
 
@@ -82,8 +81,8 @@ class Tabs extends React.Component {
             <>
                 <div className="tab-nav">
                     {this.getUpdatedTabsWithProps()}
+                    {this.getNewTabButtonIfDefaultExists()}
                 </div>
-                {this.getNewTabButtonIfDefaultExists()}
                 <div className="tab-content">
                     {this.renderActiveTab()}
                 </div>
