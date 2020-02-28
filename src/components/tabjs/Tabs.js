@@ -21,20 +21,31 @@ function Tabs(props) {
         }
     }
     
-    const [initState, ] = useState(init(props));    
+    const [initState, ] = useState(() => init(props));    
     const [activeTabId, setActiveTabId] = useState(0);
     const [tabs, setTabs] = useState(initState['tabs']);
     const [tabDefault, setTabDefault] = useState(initState['tabDefault']);
-    
     
     function getUpdatedTabsWithProps() {
         return React.Children.map(tabs, (child, id) => {
             return React.cloneElement(child, {
                 onClick: () => setActiveTabId(id),
                 tabId: id,
-                isActive: (id === activeTabId)                  
+                isActive: (id === activeTabId)
             });
         });
+    }
+    
+    function setTabLabel(id, label) {
+        let newTabs = [...tabs];
+        if('label' in newTabs[id]['props'] && newTabs[id]['props']['label'].valueOf() == label.valueOf()) {
+            console.log('inside');
+            return;
+        }
+        newTabs[id] = React.cloneElement(newTabs[id], {
+            'label': label
+        });
+        setTabs(newTabs);
     }
          
     function getNewTab() {
@@ -45,10 +56,11 @@ function Tabs(props) {
             </Tab>
         )
     }
+    
     function getNewTabButtonIfDefaultExists() {
         if(tabDefault) {
             return (
-                <div className="btn noselect new-tab-button" onClick={() => {setTabs([...tabs, getNewTab()])}}>
+                <div className="btn noselect new-tab-button" onClick={() => {setTabs([...tabs, getNewTab()]); setActiveTabId(tabs.length)}}>
                     <a>+</a>
                 </div>
             )
@@ -58,7 +70,23 @@ function Tabs(props) {
     }
     
     function renderActiveTab() {
-        return tabs[activeTabId].props.children;
+        return React.Children.map(tabs, (tab, id) => {
+            return React.Children.map(tab.props.children, (child) => {
+                return (
+                <div className={"tab-content" + (activeTabId === id ? "" : " hidden")}>
+                {
+                    (typeof child.type === 'function') ? (
+                        React.cloneElement(child, {
+                        setTabLabel: (label) => setTabLabel(id, label),
+                        })
+                    ) : (
+                        React.cloneElement(child)
+                    )
+                }
+                </div>
+                )
+            });
+        });
     }
     
     return (
@@ -67,7 +95,7 @@ function Tabs(props) {
                 {getUpdatedTabsWithProps()}
                 {getNewTabButtonIfDefaultExists()}
             </div>
-            <div className="tab-content">
+            <div className="tab-contents">
                 {renderActiveTab()}
             </div>
         </>

@@ -9,4 +9,4 @@ function TabDefault(props) {
     );
 }
 
-export default TabDefault
+export default TabDefault;
