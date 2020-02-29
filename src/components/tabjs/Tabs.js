@@ -69,23 +69,28 @@ function Tabs(props) {
         }
     }
     
+    function getChildrenWithSetTabLabel(children, id) {
+        return React.Children.map(children, (child) => { 
+            return (typeof child.type === 'function') ? (
+                React.cloneElement(child, {
+                setTabLabel: (label) => setTabLabel(id, label),
+                tabId: id
+                })
+            ) : (
+                React.cloneElement(child)
+            )
+        })
+        
+    }
+    
     function renderActiveTab() {
         return React.Children.map(tabs, (tab, id) => {
-            return React.Children.map(tab.props.children, (child) => {
-                return (
+            console.log(tab);
+            return (
                 <div className={"tab-content" + (activeTabId === id ? "" : " hidden")}>
-                {
-                    (typeof child.type === 'function') ? (
-                        React.cloneElement(child, {
-                        setTabLabel: (label) => setTabLabel(id, label),
-                        })
-                    ) : (
-                        React.cloneElement(child)
-                    )
-                }
+                    {getChildrenWithSetTabLabel(tab.props.children, id)}   
                 </div>
-                )
-            });
+            )  
         });
     }
     
